@@ -105,4 +105,20 @@ public class MoneyTest extends TestCase {
         assertTrue(sum instanceof Money);
     }
 
+    public void testConvertTransaction() {
+        Bank bank = new Bank();
+        bank.addRate("USD", "GBP", STANDARD_RATE);
+        bank.commission(STANDARD_COMMISSION);
+        Money result = bank.convert(new Note(100, "USD"), "GBP");
+        assertEquals(new Note(49.25, "GBP"), result);
+    }
+
+    public void testConvertTransactionWithCalcs() {
+        Bank bank = new Bank();
+        bank.addRate("USD", "GBP", 2);
+        bank.commission(0.015);
+        Money result = bank.convert(new Note(100, "USD"), "GBP");
+        assertEquals(new Note(100 / 2 * (1 - 0.015), "GBP"), result);
+    }
+
 }
