@@ -31,7 +31,7 @@ public class MoneyTest extends TestCase {
         Money five = Money.dollar(5);
         Expression sum = five.plus(five);
         Bank bank = new Bank();
-        Money reduced = bank.reduce(sum, "USD");
+        Money reduced = sum.reduce(bank, "USD");
         assertEquals(Money.dollar(10), reduced);
     }
 
@@ -103,6 +103,41 @@ public class MoneyTest extends TestCase {
     public void testPlusSameCurrencyReturnsMoney() {
         Expression sum = Money.dollar(1).plus(Money.dollar(1));
         assertTrue(sum instanceof Money);
+    }
+
+    public void testSumPrinting() {
+        Sum sum = new Sum(Money.dollar(5), Money.franc(7));
+        assertEquals("5 USD + 7 CHF", sum.toString());
+        assertEquals("+\n\t5 USD\n\t7 CHF", sum.toString());
+    }
+
+    tring toString() {
+        IndentingStream writer = new IndentingStream();
+        toString(writer);
+        return writer.contents();
+    }
+
+    void toString(IndentingWriter writer) {
+        writer.println("+");
+        writer.indent();
+        augend.toString(writer);
+        writer.println();
+        addend.toString(writer);
+        writer.exdent();
+    }
+
+    public void testRate() {
+        exchange.addRate("USD", "GBP", 2);
+        int rate = exchange.findRate("USD", "GBP");
+        assertEquals(2, rate);
+    }
+
+    public void testMissingRate() {
+        try {
+            exchange.findRate("USD", "GBP");
+            fail();
+        } catch (IllegalArgumentException expected) {
+        }
     }
 
     public void testConvertTransaction() {

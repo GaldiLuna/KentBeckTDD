@@ -97,12 +97,19 @@ class TestSuite:
     def __init__(self):
         self.tests = []
 
+    def testSuite(self):
+        suite = TestSuite()
+        suite.add(WasRun("testMethod"))
+        suite.run(self.result)
+        assert("1 run, 0 failed" == self.result.summary())
+
     def add(self, test):
+        self.test = test
         self.tests.append(test)
 
     def run(self, result):
-        for test in tests:
-            test.run(result)
+        for test in self.tests:
+            self.test.run(result)
 
 # CHAMADAS PRINTS INVOCANDO TODOS OS TESTES
 suite = TestSuite()
