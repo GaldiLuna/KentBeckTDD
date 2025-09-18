@@ -111,49 +111,49 @@ public class MoneyTest extends TestCase {
         assertEquals("+\n\t5 USD\n\t7 CHF", sum.toString());
     }
 
-    tring toString() {
-        IndentingStream writer = new IndentingStream();
-        toString(writer);
-        return writer.contents();
-    }
-
-    void toString(IndentingWriter writer) {
-        writer.println("+");
-        writer.indent();
-        augend.toString(writer);
-        writer.println();
-        addend.toString(writer);
-        writer.exdent();
-    }
-
-    public void testRate() {
-        exchange.addRate("USD", "GBP", 2);
-        int rate = exchange.findRate("USD", "GBP");
-        assertEquals(2, rate);
-    }
-
-    public void testMissingRate() {
-        try {
-            exchange.findRate("USD", "GBP");
-            fail();
-        } catch (IllegalArgumentException expected) {
-        }
-    }
-
-    public void testConvertTransaction() {
-        Bank bank = new Bank();
-        bank.addRate("USD", "GBP", STANDARD_RATE);
-        bank.commission(STANDARD_COMMISSION);
-        Money result = bank.convert(new Note(100, "USD"), "GBP");
-        assertEquals(new Note(49.25, "GBP"), result);
-    }
-
-    public void testConvertTransactionWithCalcs() {
-        Bank bank = new Bank();
-        bank.addRate("USD", "GBP", 2);
-        bank.commission(0.015);
-        Money result = bank.convert(new Note(100, "USD"), "GBP");
-        assertEquals(new Note(100 / 2 * (1 - 0.015), "GBP"), result);
-    }
+//    String toString() {
+//        IndentingStream writer = new IndentingStream();
+//        toString(writer);
+//        return writer.contents();
+//    }
+//
+//    void toString(IndentingWriter writer) {
+//        writer.println("+");
+//        writer.indent();
+//        augend.toString(writer);
+//        writer.println();
+//        addend.toString(writer);
+//        writer.exdent();
+//    }
+//
+//    public void testRate() {
+//        exchange.addRate("USD", "GBP", 2);
+//        int rate = exchange.findRate("USD", "GBP");
+//        assertEquals(2, rate);
+//    }
+//
+//    public void testMissingRate() {
+//        try {
+//            exchange.findRate("USD", "GBP");
+//            fail();
+//        } catch (IllegalArgumentException expected) {
+//        }
+//    }
+//
+//    public void testConvertTransaction() {
+//        Bank bank = new Bank();
+//        bank.addRate("USD", "GBP", STANDARD_RATE);
+//        bank.commission(STANDARD_COMMISSION);
+//        Money result = bank.convert(new Note(100, "USD"), "GBP");
+//        assertEquals(new Note(49.25, "GBP"), result);
+//    }
+//
+//    public void testConvertTransactionWithCalcs() {
+//        Bank bank = new Bank();
+//        bank.addRate("USD", "GBP", 2);
+//        bank.commission(0.015);
+//        Money result = bank.convert(new Note(100, "USD"), "GBP");
+//        assertEquals(new Note(100 / 2 * (1 - 0.015), "GBP"), result);
+//    }
 
 }

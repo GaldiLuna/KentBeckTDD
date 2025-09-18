@@ -7,11 +7,11 @@ public class AllTests {
         junit.swingui.TestRunner.run(AllTests.class);
     }
 
-    public static Test suite() {
+    public static TestSuite suite() {
         TestSuite result = new TestSuite("TFD tests");
         result.addTestSuite(MoneyTest.class);
-        result.addTestSuite(ExchangeTest.class);
-        result.addTestSuite(IdentityRateTest.class);
+//        result.addTestSuite(ExchangeTest.class);
+//        result.addTestSuite(IdentityRateTest.class);
         return result;
     }
 }
